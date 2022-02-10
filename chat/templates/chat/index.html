@@ -1,0 +1,39 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    <div class="container">
+        <p>Qual sala de chat você gostaria de entrar?</p><br>
+        <input type="text" id="room_name" name="room_name" size="100" placeholder="Room Name...">
+        {% buttons %}
+            <input id="button" class="btn btn-primary" type="button" value="Enter">
+        {% endbuttons %}
+    </div>
+    <script>
+        document.querySelector('#room_name').focus();
+        document.querySelector('#room_name').onkeyup = function(e) {
+            if(e.keyCode === 13) {
+                document.querySelector('#button').click();
+            }
+        };
+
+        document.querySelector('#button').onclick = function(e) {
+            var room_name = document.querySelector('#room_name').value;
+            if(room_name !== "") {
+                window.location.pathname = '/chat/' + room_name + '/';
+            } else {
+                alert("You need to enter the name of the room.");
+                document.querySelector('#room_name').focus();
+            }
+        };
+    </script>
+{% bootstrap_javascript %}
+</body>
+</html>
