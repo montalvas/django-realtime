@@ -4,6 +4,6 @@ from .views import IndexView, RoomView
 app_name = 'chat'
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='chat:index'),
-    path('chat/<str:name_room>', RoomView.as_view(), name='chat:room'),
+    path('', IndexView.as_view(), name='index'),
+    path('chat/<str:room_name>/', RoomView.as_view(), name='room'),
 ]

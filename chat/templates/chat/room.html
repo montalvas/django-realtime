@@ -1,6 +1,6 @@
 {% load bootstrap4 %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,22 +17,23 @@
         {% endbuttons %}
     </div>
 
-    {% bootstrap_javascript %}
+    {% bootstrap_javascript jquery='full' %}
     <script>
         var room_name = {{ room_name_json }};
 
         var chatSocket = new WebSocket(
-            'ws://' + window.location.host + '/ws/chat/' + room_name + '/'
+            'ws://' + window.location.host +
+            '/ws/chat/' + room_name + '/'
         );
 
         chatSocket.onmessage = function(e) {
             var data = JSON.parse(e.data);
             var message = data['message'];
-            document.querySelector('#room').value += (message + '\n')
+            document.querySelector('#room').value += (message + '\n');
         };
 
         chatSocket.onclose = function(e) {
-            console.error('The chat ended.')
+            console.error('The chat ended.');
         };
 
         document.querySelector('#text').focus();
@@ -45,11 +46,12 @@
         document.querySelector('#button').onclick = function(e) {
             var messageInput = document.querySelector('#text')
             var message = messageInput.value;
-            chatSocket.send(JSON.stringfy({
+            chatSocket.send(JSON.stringify({
                 'message': message
             }));
             messageInput.value = '';
         }
     </script>
+    
 </body>
 </html>
